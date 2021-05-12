@@ -7,7 +7,7 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: OpenWrtx86-20210512
+name: OpenWrt-x86-20210512
 
 on:
   push:
