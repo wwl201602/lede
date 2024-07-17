@@ -49,7 +49,22 @@ jobs:
           ./scripts/feeds install -a
 
       - name: Generate configuration file
-        run: make defconfig
+        run: |
+          rm -f ./.config*
+          touch ./.config
+         
+          cat >> .config <<EOF
+          CONFIG_TARGET_IMAGES_GZIP=y
+          CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
+          CONFIG_KERNEL_BUILD_DOMAIN="Azure"
+          EOF
+          
+          cat >> .config <<EOF
+          CONFIG_EFI_IMAGES=y
+          EOF
+
+          sed -i 's/^[ \t]*//g' ./.config
+          make defconfig
 
       - name: Download packages
         run: make download -j16
